@@ -5,7 +5,8 @@
 {% block content %}
 {{ message }}
 {{ qs }}
-
+{{ view.kwargs.sample }}
+{{ output }}
 <div class="ui container">
     <div class="ui grid">
         {% for q in qs %}

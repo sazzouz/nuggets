@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+{{ count }} results
+<div class="ui header">Search results</div>
+<div class="ui container">
+    <div class="ui grid">
+        {% for q in results %}
+        <div class="four wide column">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header">{{ q.title }}</div>
+                </div>
+                <div class="content">
+                    <h4 class="ui sub header">Description</h4>
+                    <div class="text">
+                        {{ q.description }}
+                    </div>
+                </div>
+                <div class="extra content">
+                    <button class="ui button">Start</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+{% endblock %}
