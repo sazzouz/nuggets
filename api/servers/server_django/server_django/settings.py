@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'graphene_django',
     'accounts',
     'nuggets',
-    'api'
+    'api',
+    'taggit'
 ]
 
 MIDDLEWARE = [
@@ -138,3 +140,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ]
 }
+
+GRAPHENE = {
+    "SCHEMA": "django_root.schema.schema"
+}
+
+TAGGIT_CASE_INSENSITIVE = True

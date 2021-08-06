@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView
+from graphene_django.views import GraphQLView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', include('nuggets.urls')),
+    # path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('nuggets/', include('nuggets.urls')),
     path('api/v1/', include('api.urls')),
+    path("graphql", GraphQLView.as_view(graphiql=True)),
 ]

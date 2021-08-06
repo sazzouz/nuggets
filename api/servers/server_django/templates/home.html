@@ -3,12 +3,53 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-Hi {{ user.username }}!
-<p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a> |
-<a href="{% url 'signup' %}">Sign Up</a>
-{% endif %}
+{{ message }}
+{{ qs }}
+
+<div class="ui container">
+    <div class="ui grid">
+        {% for q in qs %}
+        <div class="four wide column">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header">{{ q.title }}</div>
+                </div>
+                <div class="content">
+                    <h4 class="ui sub header">Description</h4>
+                    <div class="text">
+                        {{ q.description }}
+                    </div>
+                </div>
+                <div class="extra content">
+                    <button class="ui button">Start</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<div class="ui container">
+    <div class="row">
+        <div class="col-4">
+            {% if user.is_authenticated %}
+            <div class="card text-left">
+                <img class="card-img-top" src="holder.js/100px180/" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Home</h4>
+                    <p class="card-text">Hiii {{ user.username }}!</p>
+                </div>
+            </div>
+            <p><a href="{% url 'logout' %}">Log Out</a></p>
+
+            {% else %}
+        </div>
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+
+    </div>
+    <p>You are not logged in</p>
+    {% endif %}
+</div>
 {% endblock %}
