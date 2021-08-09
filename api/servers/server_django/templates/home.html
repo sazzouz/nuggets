@@ -1,12 +1,46 @@
 {% extends 'base.html' %}
+{% load blog_tags %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Nuggets{% endblock %}
 
 {% block content %}
-{{ message }}
-{{ qs }}
-{{ view.kwargs.sample }}
-{{ output }}
+
+<div class="ui container" style="margin-bottom: 2rem; margin-top: 1rem;">
+    <div class="ui row">
+        <div class="ui placeholder segment">
+            <div class="ui two column stackable center aligned grid">
+                <div class="ui vertical divider">Or</div>
+                <div class="middle aligned row">
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="search icon"></i>
+                            Find Country
+                        </div>
+                        <div class="field">
+                            <div class="ui search">
+                                <div class="ui icon input">
+                                    <input class="prompt" type="text" placeholder="Search countries...">
+                                    <i class="search icon"></i>
+                                </div>
+                                <div class="results"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="world icon"></i>
+                            Add New Country
+                        </div>
+                        <div class="ui primary button">
+                            Create
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="ui container">
     <div class="ui grid">
         {% for q in qs %}
@@ -18,11 +52,11 @@
                 <div class="content">
                     <h4 class="ui sub header">Description</h4>
                     <div class="text">
-                        {{ q.description }}
+                        {{ q.description|markdown|truncatewords_html:30 }}
                     </div>
                 </div>
                 <div class="extra content">
-                    <button class="ui button">Start</button>
+                    <a class="ui button" href="{% url 'quiz' q.id %}">Start</a>
                 </div>
             </div>
         </div>
@@ -31,26 +65,4 @@
 
 </div>
 
-<div class="ui container">
-    <div class="row">
-        <div class="col-4">
-            {% if user.is_authenticated %}
-            <div class="card text-left">
-                <img class="card-img-top" src="holder.js/100px180/" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Home</h4>
-                    <p class="card-text">Hiii {{ user.username }}!</p>
-                </div>
-            </div>
-            <p><a href="{% url 'logout' %}">Log Out</a></p>
-
-            {% else %}
-        </div>
-        <div class="col-4"></div>
-        <div class="col-4"></div>
-
-    </div>
-    <p>You are not logged in</p>
-    {% endif %}
-</div>
 {% endblock %}

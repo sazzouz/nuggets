@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from graphene_django.views import GraphQLView
+from django.contrib.sitemaps.views import sitemap
+from nuggets.sitemaps import QuizSitemap
+sitemaps = {
+    'quizzes': QuizSitemap,
+}
 
 urlpatterns = [
     path('', include('nuggets.urls')),
@@ -24,6 +29,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('nuggets/', include('nuggets.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
     path('api/v1/', include('api.urls')),
     path("graphql", GraphQLView.as_view(graphiql=True)),
 ]

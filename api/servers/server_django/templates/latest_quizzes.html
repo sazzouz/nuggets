@@ -1,0 +1,9 @@
+<div class="ui link list">
+
+    {% for quiz in latest_quizzes %}
+
+    <a href="{{ quiz.get_absolute_url }}" class="item">{{ quiz.title }}</a>
+
+    {% endfor %}
+
+</div>

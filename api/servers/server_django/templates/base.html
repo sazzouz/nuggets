@@ -1,77 +1,108 @@
+{% load blog_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>{% block title %}Nuggets{% endblock %}</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <!-- Bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
-    <!-- <link rel="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.js"> -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
-    />
-  </head>
+<head>
+  <title>{% block title %}Nuggets{% endblock %}</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <body>
-    <main>
-      <div class="ui container">
-        <div class="ui stackable secondary menu">
-          <a class="item" href="{% url 'home' %}">
-            Nuggets
-          </a>
-          <a class="item">
-            Leaderboard
-          </a>
+  <!-- Bootstrap CSS -->
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
+  <!-- <link rel="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.js"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
+</head>
 
-          <div class="item">
-            <form action="{% url 'search' %}" method="get">
-              <div class="ui icon input">
-                <input name="q" type="text" placeholder="Search..." />
-              </div>
-              <button class="ui icon button" type="submit">
-                <i class="search link icon"></i>
-              </button>
-            </form>
-          </div>
+<body>
+  <main>
+    <div class="ui container">
+      <div class="ui stackable secondary menu">
+        <a class="item" href="{% url 'home' %}">
+          Home
+        </a>
+        <a class="item" href="{% url 'leaderboard' %}">
+          Leaderboard
+        </a>
 
-          <div class="right menu">
-            {% if user.is_authenticated %}
-
-            <div class="ui pointing dropdown link item">
-              <span class="text">{{ user.username }}</span>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <div class="header">Account</div>
-                <a class="item" href="{% url 'profile' %}">Profile</a>
-                <div class="item">Stats</div>
-                <div class="divider"></div>
-                <a class="item" href="{% url 'logout' %}">
-                  Logout
-                </a>
-              </div>
+        <div class="item">
+          <form action="{% url 'search' %}" method="get">
+            <div class="ui icon input">
+              <input name="q" type="text" placeholder="Search..." />
             </div>
-            {% else %}
-            <a class="ui item" href="{% url 'login' %}">Log In</a>
-            <a class="ui item" href="{% url 'signup' %}">Sign Up</a>
-            {% endif %}
-          </div>
+            <button class="ui icon button" type="submit">
+              <i class="search link icon"></i>
+            </button>
+          </form>
         </div>
 
-        {% block content %} {% endblock %}
+        <div class="right menu">
+          {% if user.is_authenticated %}
+
+          <div class="ui pointing dropdown link item">
+            <span class="text">{{ user.username }}</span>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <div class="header">Account</div>
+              <a class="item" href="{% url 'profile' %}">Profile</a>
+              <a class="item" href="{% url 'stats' %}">Stats</a>
+              <a class="item" href="http://localhost:8000/sitemap.xml" target="_blank">Sitemap</a>
+              <a class="item" href="{% url 'dev' %}">Dev Area</a>
+              <div class="divider"></div>
+              <a class="item" href="{% url 'logout' %}">
+                Logout
+              </a>
+            </div>
+          </div>
+          {% else %}
+          <a class="ui item" href="{% url 'login' %}">Log In</a>
+          <a class="ui item" href="{% url 'signup' %}">Sign Up</a>
+          {% endif %}
+        </div>
       </div>
-    </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script>
-      $(".ui.dropdown").dropdown();
-    </script>
-  </body>
+
+
+
+      {% block content %} {% endblock %}
+    </div>
+    <hr style="margin-top: 2rem; margin-bottom: 2rem; border: 0.5px solid #ddd;" />
+    <div class="ui vertical footer segment" style="padding-top: 5rem; padding-bottom: 10rem;">
+      <div class="ui container">
+        <div class="ui stackable divided equal height stackable grid">
+          <div class="three wide column">
+            <h4 class="ui header">Latest Quizzes</h4>
+            {% show_latest_quizzes %}
+          </div>
+          <div class="three wide column">
+            <h4 class="ui header">Most commented posts</h4>
+
+            {% get_most_commented_quizzes as most_commented_quizzes %}
+            <ul>
+              {% for quiz in most_commented_quizzes %}
+              <li>
+                <a href="{{ quiz.get_absolute_url }}">{{ quiz.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="seven wide column">
+            <h4 class="ui header">Nuggets Project</h4>
+            <p>
+            <p>There are {% total_quizzes %} quizzes so far.
+              </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script>
+    $(".ui.dropdown").dropdown();
+  </script>
+</body>
+
 </html>

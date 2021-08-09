@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% load crispy_forms_tags %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% for q in quiz %}
+<h1 class="ui header">{{ q.title }}</h1>
+<p class="tags">
+    Tags:
+    {% for tag in q.tags.all %}
+    <a href="{% url 'search_by_tag' tag.slug %}">
+        {{ tag.name }}
+    </a>
+    {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
+<p>
+    <a href="{% url 'quiz_share' q.id %}">
+        Share this post
+    </a>
+</p>
+<p>{{ q.description|markdown }}</p>
+{% endfor %}
+<hr />
+{% with comments.count as total_comments %}
+<h2>
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+</h2>
+{% endwith %}
+{% for comment in comments %}
+<div class="comment">
+    <p class="info">
+        Comment {{ forloop.counter }} by {{ comment.name }}
+        {{ comment.created }}
+    </p>
+    {{ comment.body|linebreaks }}
+</div>
+{% empty %}
+<p>There are no comments yet.</p>
+{% endfor %}
+{% if new_comment %}
+<h2>Your comment has been added.</h2>
+<a href="{% url 'quiz' id %}">Back to quiz</a>
+{% else %}
+<h2>Add a new comment</h2>
+<form method="post">
+    {{ comment_form|crispy }}
+    {% csrf_token %}
+    <p><input type="submit" value="Add comment"></p>
+</form>
+{% endif %}
+<h2>Similar posts</h2>
+<div class="ui container">
+    <div class="ui grid">
+        {% for q in similar %}
+        <div class="four wide column">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header">{{ q.title }}</div>
+                </div>
+                <div class="content">
+                    <h4 class="ui sub header">Description</h4>
+                    <div class="text">
+                        {{ q.description|markdown|truncatewords_html:30 }}
+                    </div>
+                </div>
+                <div class="extra content">
+                    <a class="ui button" href="{% url 'quiz' q.id %}">Start</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

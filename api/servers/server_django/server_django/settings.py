@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
@@ -37,12 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'rest_framework',
     'graphene_django',
     'accounts',
     'nuggets',
     'api',
-    'taggit'
+    'taggit',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -146,3 +150,5 @@ GRAPHENE = {
 }
 
 TAGGIT_CASE_INSENSITIVE = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

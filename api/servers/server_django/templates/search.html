@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
+{% load blog_tags %}
 
 {% block title %}Search{% endblock %}
 
 {% block content %}
-{{ count }} results
-<div class="ui header">Search results</div>
+
+
+<div class="ui centered grid container" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <div class="five wide column"></div>
+    <div class="six wide column">
+        <h1 class="ui header" style="text-align: center;">Search results</h1>
+        <p style="text-align: center;">Found {{ count }} result{{ count|pluralize }}</p>
+    </div>
+    <div class="five wide column"></div>
+</div>
+{% if tag %}
+<h2>Posts tagged with "{{ tag.name }}"</h2>
+{% endif %}
 <div class="ui container">
     <div class="ui grid">
         {% for q in results %}
@@ -16,18 +28,39 @@
                 <div class="content">
                     <h4 class="ui sub header">Description</h4>
                     <div class="text">
-                        {{ q.description }}
+                        {{ q.description|markdown|truncatewords_html:30 }}
                     </div>
                 </div>
                 <div class="extra content">
-                    <button class="ui button">Start</button>
+                    <a class="ui button" href="{% url 'quiz' q.id %}">Start</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
-
 </div>
-
+<div class="ui centered grid container" style="margin-top: 2rem;">
+    <div class="five wide column"></div>
+    <div class="six wide column">
+        <div class="ui pagination menu">
+            <a class="active item">
+                1
+            </a>
+            <div class="disabled item">
+                ...
+            </div>
+            <a class="item">
+                10
+            </a>
+            <a class="item">
+                11
+            </a>
+            <a class="item">
+                12
+            </a>
+        </div>
+    </div>
+    <div class="five wide column"></div>
+</div>
 
 {% endblock %}
