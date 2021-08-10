@@ -5,9 +5,10 @@ import { Card, Icon, Image as SemImage } from 'semantic-ui-react';
 import CardExampleGroupProps from '../components/CardGroup';
 import React, { useState, useEffect } from 'react';
 
-export async function getStaticProps(context) {
-    const res = await fetch('https://api.github.com/repos/vercel/next.js');
+export async function getStaticProps() {
+    const res = await fetch('http://127.0.0.1:8000/api/v1/quizzes/?search=baby');
     const data = await res.json();
+    console.log(data);
 
     if (!data) {
         return {
@@ -16,18 +17,25 @@ export async function getStaticProps(context) {
     }
 
     return {
-        props: { data } // will be passed to the page component as props
+        props: { ninjas: data } // will be passed to the page component as props
     };
 }
 
-export default function Home({ data }) {
+export default function Home({ ninjas }) {
     return (
         <div className={styles.container}>
             <CardExampleGroupProps />
             <Link href="/semantic">
                 <a>Semantic</a>
             </Link>
-            <pre>{data}</pre>
+            <h3>All ninjas</h3>
+            {ninjas.map((ninja) => (
+                <div key={ninja.id}>
+                    <a>
+                        <h3>{ninja.title}</h3>
+                    </a>
+                </div>
+            ))}
             <Card>
                 <SemImage
                     src="https://recipefairy.com/wp-content/uploads/2020/05/mcdonalds-chicken-nuggets-recipe.jpg"

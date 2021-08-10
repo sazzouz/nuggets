@@ -10,3 +10,17 @@ class QuizSerializer(serializers.ModelSerializer):
             'description'
         )
         model = models.Quiz
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        # fields = (
+        #     'quiz',
+        #     'name',
+        #     'email',
+        #     'body',
+        #     'created',
+        #     'updated'
+        # )
+        fields = '__all__'
+        model = models.Comment

@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import QuizViewSet
+from . import views
 
 # urlpatterns = [
 #     path('', ListQuiz.as_view()),
@@ -9,5 +9,7 @@ from .views import QuizViewSet
 # ]
 
 router = DefaultRouter()
-router.register('', QuizViewSet, basename='quiz')
+router.register('quizzes', views.QuizViewSet, basename='quiz')
+router.register('comments', views.CommentViewSet, basename='comment')
+# router.register('search/', views.QuizSearch.as_view(), basename='search')
 urlpatterns = router.urls
