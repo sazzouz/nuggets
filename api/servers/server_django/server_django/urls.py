@@ -18,6 +18,7 @@ from django.urls import path, include
 from graphene_django.views import GraphQLView
 from django.contrib.sitemaps.views import sitemap
 from nuggets.sitemaps import QuizSitemap
+import debug_toolbar
 sitemaps = {
     'quizzes': QuizSitemap,
 }
@@ -33,4 +34,5 @@ urlpatterns = [
          name='django.contrib.sitemaps.views.sitemap'),
     path('api/v1/', include('api.urls')),
     path("graphql", GraphQLView.as_view(graphiql=True)),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]

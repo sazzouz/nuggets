@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import TemplateView
@@ -19,7 +21,7 @@ class Dev(TemplateView):
         return context
 
 
-class Home(TemplateView):
+class Home(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -31,12 +33,13 @@ class Home(TemplateView):
         return context
 
 
+@login_required
 def leaderboard(request):
     context = {}
     return render(request, 'leaderboard.html', context)
 
 
-class Stats(TemplateView):
+class Stats(LoginRequiredMixin, TemplateView):
     template_name = 'stats.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -44,6 +47,7 @@ class Stats(TemplateView):
         return context
 
 
+@login_required
 def search(request, tag_slug=None):
     tag = None
     context = {}
@@ -85,6 +89,7 @@ def search(request, tag_slug=None):
         return JsonResponse('Must be a GET request.')
 
 
+@login_required
 def quiz(request, id):
     context = {}
     context['id'] = id
@@ -124,6 +129,7 @@ def quiz(request, id):
     return render(request, 'quiz.html', context)
 
 
+@login_required
 def quiz_share(request, id):
  # Retrieve post by id
     quiz = get_object_or_404(Quiz, id=id, status='published')
@@ -146,6 +152,7 @@ def quiz_share(request, id):
     return render(request, 'share.html', {'quiz': quiz, 'form': form, 'sent': sent})
 
 
+@login_required
 def json_page(request):
     context = {}
     res = requests.get('https://swapi.dev/api/people')
