@@ -1,7 +1,7 @@
 from rest_framework import generics, viewsets, filters
-
-from nuggets import models
-from .serializers import QuizSerializer, CommentSerializer
+from django.contrib.auth import get_user_model
+from nuggets.models import Quiz, Comment
+from .serializers import QuizSerializer, CommentSerializer, UserSerializer
 
 # class ListQuiz(generics.ListCreateAPIView):
 #     queryset = models.Quiz.objects.all()
@@ -13,14 +13,14 @@ from .serializers import QuizSerializer, CommentSerializer
 #     serializer_class = QuizSerializer
 
 class QuizViewSet(viewsets.ModelViewSet):
-    queryset = models.Quiz.objects.all()
+    queryset = Quiz.objects.all()
     serializer_class = QuizSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ('title', 'description')
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = models.Comment.objects.all()
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
 
@@ -29,3 +29,12 @@ class CommentViewSet(viewsets.ModelViewSet):
 #     serializer_class = QuizSerializer
 
 #     queryset = models.Quiz.objects.all()
+
+class UserList(generics.ListCreateAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer

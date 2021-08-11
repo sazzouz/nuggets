@@ -5,15 +5,24 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
-
-from .forms import CustomUserCreationForm
+from .forms import LoginForm, CustomUserCreationForm, UserEditForm, ProfileEditForm
+from .models import Profile
 
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('welcome')
     template_name = 'registration/signup.html'
+
+    def form_valid(self, form):
+        new_user = form.save()
+        Profile.objects.create(user=new_user)
+        return super(SignUpView, self).form_valid(form)
+
+
+def welcome(request):
+    context = {}
+    return render(request, 'registration/welcome.html', context)
 
 
 def user_login(request):
@@ -41,3 +50,24 @@ def user_login(request):
 def profile(request):
     context = {}
     return render(request, 'accounts/profile.html', context)
+
+
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        profile_form = ProfileEditForm(
+            instance=request.user.profile,
+            data=request.POST,
+            files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(
+            instance=request.user.profile)
+    return render(request, 'account/edit.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form})

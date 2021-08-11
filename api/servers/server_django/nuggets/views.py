@@ -54,7 +54,6 @@ def search(request, tag_slug=None):
     # if request.method.GET:
     #     Quiz.objects.all().filter(content__contains=results)
     if request.method == "GET":
-        print('\n\nfrom tags\n\n')
         if 'q' in request.GET:
             q = request.GET['q']
             quiz_list = Quiz.objects.all().filter(title__icontains=q)

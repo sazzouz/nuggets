@@ -18,6 +18,14 @@ black = "^21.7b0"
 Markdown = "^3.3.4"
 django-crispy-forms = "^1.12.0"
 django-debug-toolbar = "^3.2.1"
+Pillow = "^8.3.1"
+django-rest-auth = "^0.9.5"
+django-allauth = "^0.45.0"
+coreapi = "^2.3.3"
+PyYAML = "^5.4.1"
+django-rest-swagger = "^2.2.0"
+drf-yasg = "^1.20.0"
+djangorestframework-simplejwt = "^4.7.2"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^21.7b0", allow-prereleases = true}

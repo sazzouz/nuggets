@@ -3,10 +3,39 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<h2>Sign Up</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-</form>
+{% if user.is_authenticated %}
+<a class="ui button" href="{% url 'home' %}">Back home</a>
+{% else %}
+<div class="wrap">
+    <div class="ui column stackable center page grid middle aligned">
+        <div class="one wide column"></div><!-- empty div just padding -->
+        <div class="ui ten wide column form segment">
+            <h1>Sign-up</h1>
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="ui button">Sign Up</button>
+                </form>
+                <hr>
+                <p></p><a href="{% url 'signup' %}">Already have an account? Log-in here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<style>
+    .wrap {
+        height: 100vh;
+        width: 100%;
+        margin-top: 20vh;
+    }
+
+    .errors {
+        color: red
+    }
+</style>
+
+
 {% endblock %}
