@@ -1,9 +1,8 @@
-import Navbar from './Navbar';
-import Footer from './Footer';
-import { Container } from 'semantic-ui-react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import Head from 'next/head';
 
-export default function Layout({ children }) {
+export default function MainLayout({ children }) {
     return (
         <>
             <Head>
@@ -12,7 +11,8 @@ export default function Layout({ children }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <Container>{children}</Container>
+            <div className="content"></div>
+            {children}
             <Footer />
         </>
     );

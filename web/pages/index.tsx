@@ -6,7 +6,8 @@ import CardExampleGroupProps from '../components/CardGroup';
 import React, { useState, useEffect } from 'react';
 
 export async function getStaticProps() {
-    const res = await fetch('http://127.0.0.1:8000/api/v1/quizzes/?search=baby');
+    // const res = await fetch('http://127.0.0.1:8000/api/v1/quizzes/?search=baby');
+    const res = await fetch('https://swapi.dev/api/people/');
     const data = await res.json();
     console.log(data);
 
@@ -17,23 +18,39 @@ export async function getStaticProps() {
     }
 
     return {
-        props: { ninjas: data } // will be passed to the page component as props
+        props: { people: data.results } // will be passed to the page component as props
     };
 }
 
-export default function Home({ ninjas }) {
+export default function Home({ people }) {
     return (
         <div className={styles.container}>
             <CardExampleGroupProps />
             <Link href="/semantic">
                 <a>Semantic</a>
             </Link>
-            <h3>All ninjas</h3>
-            {ninjas.map((ninja) => (
-                <div key={ninja.id}>
-                    <a>
-                        <h3>{ninja.title}</h3>
-                    </a>
+            <h3>All Jedis</h3>
+            {people.map((person) => (
+                <div key={person.id}>
+                    <Card>
+                        <Card.Content>
+                            <Card.Header>{person.name}</Card.Header>
+                            <Card.Meta>
+                                <span className="date">Born in {person.birth_year}</span>
+                            </Card.Meta>
+                            <Card.Description>
+                                {person.vehicles.map((v) => (
+                                    <span key={v.id}>{v}</span>
+                                ))}
+                            </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <a>
+                                <Icon name="user" />
+                                {person.height}
+                            </a>
+                        </Card.Content>
+                    </Card>
                 </div>
             ))}
             <Card>
