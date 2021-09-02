@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="ui container">
+    <div class="ui grid">
+        <div class="one wide column">
+        </div>
+        <div class="fourteen wide column">
+            <div class="ui fluid card">
+                <ul>
+                    <a href="{% url 'json_page' %}" target="_blank">Json Page</a>
+                </ul>
+            </div>
+        </div>
+        <div class="one wide column">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

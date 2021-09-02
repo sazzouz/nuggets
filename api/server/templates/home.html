@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+{% block title %}Nuggets{% endblock %}
+
+{% block content %}
+
+<div class="ui container" style="margin-bottom: 2rem; margin-top: 1rem;">
+    <div class="ui row">
+        <div class="ui placeholder segment">
+            <div class="ui two column stackable center aligned grid">
+                <div class="ui vertical divider">Or</div>
+                <div class="middle aligned row">
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="search icon"></i>
+                            Find Country
+                        </div>
+                        <div class="field">
+                            <div class="ui search">
+                                <div class="ui icon input">
+                                    <input class="prompt" type="text" placeholder="Search countries...">
+                                    <i class="search icon"></i>
+                                </div>
+                                <div class="results"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="world icon"></i>
+                            Add New Country
+                        </div>
+                        <div class="ui primary button">
+                            Create
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui container">
+    <div class="ui grid">
+        {% for q in qs %}
+        <div class="four wide column">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header">{{ q.title }}</div>
+                </div>
+                <div class="content">
+                    <h4 class="ui sub header">Description</h4>
+                    <div class="text">
+                        {{ q.description|markdown|truncatewords_html:30 }}
+                    </div>
+                </div>
+                <div class="extra content">
+                    <a class="ui button" href="{% url 'quiz' q.id %}">Start</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
