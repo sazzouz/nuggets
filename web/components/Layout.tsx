@@ -1,9 +1,9 @@
-import SearchAppBar from '../components/Navbar';
-import TemporaryDrawer from '../components/Drawer';
+import SearchAppBar from './Navbar';
+import TemporaryDrawer from './Drawer';
 import { Container } from '@material-ui/core';
 import { makeStyles, mergeClasses } from '@material-ui/styles';
 
-export interface MainLayoutProps {}
+export interface LayoutProps {}
 
 const useStyles = makeStyles({
     page: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MainLayout: React.SFC<MainLayoutProps> = ({ children }) => {
+const Layout: React.SFC<LayoutProps> = ({ children }) => {
     const classes = useStyles();
 
     return (
@@ -26,4 +26,4 @@ const MainLayout: React.SFC<MainLayoutProps> = ({ children }) => {
     );
 };
 
-export default MainLayout;
+export default Layout;

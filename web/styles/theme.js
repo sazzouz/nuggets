@@ -16,6 +16,13 @@ const theme = createTheme({
         background: {
             default: '#fff'
         }
+    },
+    typography: {
+        fontFamily: 'Nunito',
+        fontWeightLight: '300',
+        fontWeightRegular: '400',
+        fontWeightMedium: '600',
+        fontWeightBold: '700'
     }
 });
 
