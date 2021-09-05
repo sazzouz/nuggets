@@ -1,6 +1,6 @@
 export interface CardSectionProps {}
 
-const CardSection: React.SFC<CardSectionProps> = ({ props }) => {
+const CardSection: React.SFC<CardSectionProps> = () => {
     return (
         <>
             <div>Card section</div>

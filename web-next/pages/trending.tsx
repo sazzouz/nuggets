@@ -1,6 +1,6 @@
 export interface TrendingPageProps {}
 
-const TrendingPage: React.SFC<TrendingPageProps> = ({ props }) => {
+const TrendingPage: React.SFC<TrendingPageProps> = () => {
     return (
         <>
             <div>Trending page</div>

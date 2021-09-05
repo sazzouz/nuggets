@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
-import CardExampleGroupProps from '../components/CardGroup';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import React, { useState, useEffect } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,6 +15,7 @@ import { AcUnit } from '@material-ui/icons';
 import { KeyboardArrowRightOutlined } from '@material-ui/icons';
 import { Paper, Grid } from '@material-ui/core';
 import QuizCard from '../components/QuizCard';
+import red from '@material-ui/core';
 
 export async function getStaticProps() {
     // const res = await fetch('http://127.0.0.1:8000/api/v1/quizzes/?search=baby');
