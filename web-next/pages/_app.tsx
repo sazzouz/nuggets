@@ -1,7 +1,6 @@
 import '../styles/globals.css';
 import React from 'react';
-// import 'semantic-ui-css/semantic.min.css';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';

@@ -3,8 +3,6 @@ import TemporaryDrawer from '../components/Drawer';
 import { Container } from '@material-ui/core';
 import { makeStyles, mergeClasses } from '@material-ui/styles';
 
-export interface MainLayoutProps {}
-
 const useStyles = makeStyles({
     page: {
         background: '#f9f9f9',
@@ -12,7 +10,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MainLayout: React.SFC<MainLayoutProps> = ({ children }) => {
+const MainLayout = ({ children }) => {
     const classes = useStyles();
 
     return (

@@ -16,7 +16,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-export interface QuizCardProps {}
+export interface QuizCardProps {
+    quiz: any;
+}
 
 // Should extend a base card component
 
